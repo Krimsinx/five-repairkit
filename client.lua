@@ -1,12 +1,13 @@
 local result = nil
 
-exports('Minigame', function()
+exports('Minigame', function(interval)
     result = nil -- reset
     SetNuiFocus(true, true)
     SendNUIMessage({
-        type = 'start'
-    }) 
-    while result == nil do 
+        type = 'start',
+        interval = interval or 50
+    })
+    while result == nil do
         Wait(100)
     end
     SetNuiFocus(false, false)
