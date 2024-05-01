@@ -3,7 +3,7 @@ var eKeyPressed = false;
 var slotPosition = 0;
 var currPosition = 1;
 
-function startGame() {
+function startGame(interval) {
     var hackingContainer = document.querySelector('.hacking-container');
     var movingSquare = document.querySelector('.moving-square');
     var buttonPress = document.querySelector('.button-press');
@@ -17,7 +17,7 @@ function startGame() {
     eKeyPressed = false;
     currPosition = 0;
     randomizeSquareSlot();
-    tick();
+    tick(interval);
 }
 
 function checkWin() {
@@ -41,7 +41,7 @@ function checkWin() {
     return false;
 }
 
-function tick() {
+function tick(interval) {
     var movingSquare = document.querySelector('.moving-square');
     timerInterval = setInterval(function () {
         movingSquare.style.marginLeft = "".concat(currPosition, "%");
@@ -52,7 +52,7 @@ function tick() {
             }
             handleKeyPress(new KeyboardEvent('keydown', { key: 'E' }));
         }
-    }, 50);
+    }, interval);
 }
 
 function handleKeyPress(event) {
@@ -84,6 +84,6 @@ document.addEventListener('keydown', handleKeyPress);
 
 window.addEventListener('message', (event) => {
     if (event.data.type === 'start') {
-        startGame();
+        startGame(event.data.interval);
     }
 });
